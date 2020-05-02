@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Instagram Comment Process
 
 
+## [0.2.0] - 2020-05-02
+### Added
+- Instagram Comment Process
+
+
 ## [0.1.0] - 2020-04-29
 ### Added
 - Twitter Stream Process
