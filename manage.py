@@ -4,9 +4,10 @@ from argparse import ArgumentParser
 
 from app.util.enumeration import SourceType
 from app.process.twitter_stream_process import TwitterStreamProcess
+from app.process.instagram_comment_process import InstagramCommentProcess
 
 
-def run_twitter():
+def run_twitter_stream(args):
     twitter_consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
     twitter_consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
     twitter_access_token = os.getenv('TWITTER_ACCESS_TOKEN')
@@ -22,26 +23,32 @@ def run_twitter():
     process.run()
 
 
-def run_instagram():
-    raise NotImplementedError
+def run_instagram_comment(args):
+    shortcode = args.shortcode
+
+    process = InstagramCommentProcess()
+
+    process.run(shortcode)
 
 
 if __name__ == '__main__':
     load_dotenv()
 
     parser = ArgumentParser()
-    parser.add_argument(
-        '-s',
-        '--source',
-        required=True,
-        choices=SourceType.list(),
-        help='select source'
-    )
-    
-    args = parser.parse_args()
+    subparsers = parser.add_subparsers(dest='source')
 
-    if args.source == SourceType.TWITTER.value:
-        run_twitter()
-    elif args.source == SourceType.INSTAGRAM.value:
-        run_instagram()
+    parser_twitter = subparsers.add_parser('twitter')
+    parser_twitter.set_defaults(func=run_twitter_stream)
+
+    parser_instagram = subparsers.add_parser('instagram')
+    parser_instagram.add_argument(
+        '-s',
+        '--shortcode',
+        required=True,
+        help='instagram media shortcode'
+    )
+    parser_instagram.set_defaults(func=run_instagram_comment)
+
+    args = parser.parse_args()
+    args.func(args)
 
