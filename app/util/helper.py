@@ -1,4 +1,6 @@
 import re
+import string
+import random
 
 
 def get_tweet_type(tweet):
@@ -10,6 +12,15 @@ def get_tweet_type(tweet):
         return 'reply'
 
     return 'tweet'
+
+
+def get_news_id(url):
+    try:
+        id = re.findall('detail/(.+)/', url)[0]
+    except Exception:
+        id = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
+    return id
 
 
 def normalize_text(text):
