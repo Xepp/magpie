@@ -5,6 +5,15 @@ from argparse import ArgumentParser
 from app.util.enumeration import SourceType
 from app.process.twitter_stream_process import TwitterStreamProcess
 from app.process.instagram_comment_process import InstagramCommentProcess
+from app.process.web_comment_process import KhabarFooriCommentProcess
+
+
+def run_web_comment(args):
+    url = args.url
+
+    process = KhabarFooriCommentProcess()
+
+    process.run(url)
 
 
 def run_twitter_stream(args):
@@ -48,6 +57,15 @@ if __name__ == '__main__':
         help='instagram media shortcode'
     )
     parser_instagram.set_defaults(func=run_instagram_comment)
+
+    parser_web = subparsers.add_parser('web')
+    parser_web.add_argument(
+        '-u',
+        '--url',
+        required=True,
+        help='web (Khabar Foori) url'
+    )
+    parser_web.set_defaults(func=run_web_comment)
 
     args = parser.parse_args()
     args.func(args)
