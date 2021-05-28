@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 
+## [0.3.0] - 2021-05-29
+### Added
+- Web Comment Process
+
+
 ## [0.2.0] - 2020-05-02
 ### Added
 - Instagram Comment Process

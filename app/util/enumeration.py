@@ -20,4 +20,5 @@ class SourceType(BaseEnum):
 
     TWITTER = 'twitter'
     INSTAGRAM = 'instagram'
+    WEB = 'web'
 
